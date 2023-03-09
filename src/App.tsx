@@ -3,15 +3,15 @@ import React, { useState } from 'react'
 import * as A from './style'
 
 const App = () => {
-	const [peso, setPeso] = useState<number>();
-	const [altura, setAltura] = useState<number>();
+	const [peso, setPeso] = useState('');
+	const [altura, setAltura] = useState('');
 	const [msg, setMsg] = useState('');
 
 	function calc() {
-		if(!altura || !peso) return
+		if(isNaN(Number(altura)) || isNaN(Number(peso))) return
 
-		const alt = altura / 100;
-		const imc = peso / (alt * alt);
+		const alt = Number(altura) / 100;
+		const imc = Number(peso) / (alt * alt);
 
 		if (imc < 18.6) {
 			setMsg('Você está abaixo do seu peso! Seu IMC: ' + imc.toFixed(2))
@@ -30,9 +30,29 @@ const App = () => {
 			<span>Vamos calcular o seu imc</span>
 
 			<A.AppInputArea>
-				<input type='number' placeholder='Peso em (kg)' value={peso} onChange={(e) => setPeso(parseFloat(e.target.value))} />
+				<input
+					type='number'
+					min={10}
+					max={500}
+					placeholder='Peso em (kg)'
+					value={peso}
+					onChange={(e) => {
+						if (isNaN(Number(e.target.value))) setPeso('')
+						else setPeso(e.target.value)
+					}}
+				/>
 
-				<input type='number' placeholder='Altura em (cm)' value={altura} onChange={(e) => setAltura(parseFloat(e.target.value))} />
+				<input
+					type='number'
+					min={50}
+					max={300}
+					placeholder='Altura em (cm)'
+					value={altura}
+					onChange={(e) => {
+						if (isNaN(Number(e.target.value))) setAltura('')
+						else setAltura(e.target.value)
+					}}
+				/>
 
 				<button onClick={calc}>Calcular</button>
 			</A.AppInputArea>
