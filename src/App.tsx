@@ -31,7 +31,7 @@ const App = () => {
 
 			<A.AppInputArea>
 				<input
-					type='number'
+					type='range'
 					min={10}
 					max={500}
 					placeholder='Peso em (kg)'
@@ -43,7 +43,7 @@ const App = () => {
 				/>
 
 				<input
-					type='number'
+					type='range'
 					min={50}
 					max={300}
 					placeholder='Altura em (cm)'
@@ -53,6 +53,7 @@ const App = () => {
 						else setAltura(e.target.value)
 					}}
 				/>
+				<output>24</output>
 
 				<button onClick={calc}>Calcular</button>
 			</A.AppInputArea>
